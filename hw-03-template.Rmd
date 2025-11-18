@@ -62,15 +62,31 @@ gss16_advfront <- gss16_advfront %>%
 #### Exercise 1 (a)
 
 ```{r}
-# replace this with your code
+linear_reg() %>%
+  set_engine("lm") %>%
+  fit(emailhr ~ educ, data = gss16_advfront) %>%
+  tidy()
 ```
 
-*Your answer here*
+The formula for the line-of-best-fit is emailhr = -2.757 + 0.685 x educ. The interpretation of this estimate is that for each extra year of education level a person has, the number of hours they spend on email in a week increases by 0.685 hours. The intercept does not have a meaningful interpretation because someone cannot spend -2.757 hours on email. 
 
 #### Exercise 1 (b)
 
 ```{r}
-# replace this with your code
+fit_gss16 <- gss16_advfront %>%
+  mutate(log_educ = log(educ), log_emailhr = log(emailhr))
+
+ggplot(data = fit_gss16, aes(x = log_educ, y = log_emailhr)) +
+  geom_point() +
+  geom_smooth(method = "lm", 
+              se = "FALSE") +
+  labs(
+    title = "Education Level vs. Time Spent on Email in a Week",
+    subtitle = "General Social Survey",
+    x = "Education Level (years)",
+    y = "Time Spent on Email in a Week (hours)"
+  )
+  
 ```
 
 *Your answer here*
