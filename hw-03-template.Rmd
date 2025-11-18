@@ -73,10 +73,10 @@ The formula for the line-of-best-fit is emailhr = -2.757 + 0.685 x educ. The int
 #### Exercise 1 (b)
 
 ```{r}
-fit_gss16 <- gss16_advfront %>%
+log_gss16 <- gss16_advfront %>%
   mutate(log_educ = log(educ), log_emailhr = log(emailhr))
 
-ggplot(data = fit_gss16, aes(x = log_educ, y = log_emailhr)) +
+ggplot(data = log_gss16, aes(x = log_educ, y = log_emailhr)) +
   geom_point() +
   geom_smooth(method = "lm", 
               se = "FALSE") +
@@ -103,7 +103,25 @@ gss16_test  <- testing(gss16_split)
 #### Exercise 2 (a)
 
 ```{r}
-# replace this with your code
+
+gss16_rec_1 <- recipe(
+  advfront ~ educ,
+  data = gss16_train
+)
+
+summary(gss16_rec_1)
+
+gss16_mod_1 <- logistic_reg() %>%
+  set_engine("glm")
+
+gss16_mod_1
+
+gss16_wflow_1 <- workflow () %>%
+  add_model(gss16_mod_1) %>%
+  add_recipe(gss16_rec_1)
+
+
+  
 ```
 
 *Your answer here*
@@ -111,15 +129,18 @@ gss16_test  <- testing(gss16_split)
 #### Exercise 2 (b)
 
 ```{r}
-# replace this with your code
 ```
 
-*Your answer here*
+I chose a logistic regression for this model because we are using the numerical predictor educ to predict the binary categorical outcome of advfront, which is either "Agree" or "Not Agree". Since we are predicting this binary outcome, it does not make sense to use a different type of regression such as a linear model.
 
 #### Exercise 2 (c)
 
 ```{r}
-# replace this with your code
+gss16_fit_1 <- gss16_wflow_1 %>%
+  fit(data = gss16_train)
+
+tidy(gss16_fit_1)
+
 ```
 
 *Your answer here*
