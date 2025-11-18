@@ -150,7 +150,18 @@ tidy(gss16_fit_1)
 #### Exercise 3 (a)
 
 ```{r}
-# replace this with your code
+gss16_pred <- predict(gss16_fit_1, gss16_test, type = "prob") %>%
+  bind_cols(gss16_test %>% select(advfront, educ))
+
+gss16_pred
+
+gss16_pred %>%
+  roc_curve(
+    truth = advfront,
+    .pred_Agree,
+    event_level = "second"
+  ) %>%
+  autoplot()
 ```
 
 *Your answer here*
