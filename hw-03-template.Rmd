@@ -62,10 +62,12 @@ gss16_advfront <- gss16_advfront %>%
 #### Exercise 1 (a)
 
 ```{r}
-linear_reg() %>%
+gss16_linear <- linear_reg() %>%
   set_engine("lm") %>%
-  fit(emailhr ~ educ, data = gss16_advfront) %>%
-  tidy()
+  fit(emailhr ~ educ, data = gss16_advfront)
+
+tidy(gss16_linear)
+
 ```
 
 The formula for the line-of-best-fit is emailhr = -2.757 + 0.685 x educ. The interpretation of this estimate is that for each extra year of education level a person has, the number of hours they spend on email in a week increases by 0.685 hours. The intercept does not have a meaningful interpretation because someone cannot spend -2.757 hours on email. 
@@ -73,23 +75,19 @@ The formula for the line-of-best-fit is emailhr = -2.757 + 0.685 x educ. The int
 #### Exercise 1 (b)
 
 ```{r}
-log_gss16 <- gss16_advfront %>%
-  mutate(log_educ = log(educ), log_emailhr = log(emailhr))
+glance(gss16_linear)
 
-ggplot(data = log_gss16, aes(x = log_educ, y = log_emailhr)) +
+ggplot(data = gss16_advfront, aes(x = educ, y = emailhr)) +
   geom_point() +
-  geom_smooth(method = "lm", 
-              se = "FALSE") +
   labs(
     title = "Education Level vs. Time Spent on Email in a Week",
     subtitle = "General Social Survey",
     x = "Education Level (years)",
     y = "Time Spent on Email in a Week (hours)"
   )
-  
 ```
 
-*Your answer here*
+The linear regression model does not perform well in this case. The R-squared value is 0.29, from which we can deduce that only 29% of the variation in emailhr can be explained by educ in this model. There is a pattern of points being clumped together in vertical lines in the scatter plot, which the linear model does not explain. Instead, the equation of the line-of-best-fit creates the false illusion of a linear correlation between the explanatory and response variable.
 
 ## Exercise 2: Create a workflow to fit a model
 
