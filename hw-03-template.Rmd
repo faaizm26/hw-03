@@ -112,8 +112,6 @@ summary(gss16_rec_1)
 gss16_mod_1 <- logistic_reg() %>%
   set_engine("glm")
 
-gss16_mod_1
-
 gss16_wflow_1 <- workflow () %>%
   add_model(gss16_mod_1) %>%
   add_recipe(gss16_rec_1)
@@ -188,14 +186,27 @@ specificity
 
 ```
 
-*Your answer here*
+The sensitivity is 0.555 and the specificity is 0.643.
 
 ## Exercise 4: Logistic regression modelling and interpretation
 
 #### Exercise 4 (a)
 
 ```{r}
-# replace this with your code
+gss16_rec_2 <- recipe(
+  advfront ~ .,
+  data = gss16_train) %>%
+  step_dummy(all_nominal(), -all_outcomes())
+
+summary(gss16_rec_2)
+
+gss16_mod_2 <- logistic_reg() %>%
+  set_engine("glm")
+
+gss16_wflow_2 <- workflow () %>%
+  add_model(gss16_mod_2) %>%
+  add_recipe(gss16_rec_2)
+
 ```
 
 *Your answer here*
@@ -203,7 +214,32 @@ specificity
 #### Exercise 4 (b)
   
 ```{r}
-# replace this with your code
+gss16_fit_2 <- gss16_wflow_2 %>%
+  fit(data = gss16_train)
+
+tidy(gss16_fit_2)
+
+gss16_pred2 <- predict(gss16_fit_2, gss16_test, type = "prob") %>%
+  bind_cols(gss16_test %>% select(advfront, educ))
+
+gss16_pred2
+
+gss16_pred2 %>%
+  roc_curve(
+    truth = advfront,
+    .pred_Agree,
+    event_level = "second"
+  ) %>%
+  autoplot()
+
+gss16_pred2 %>%
+  roc_auc(
+    truth = advfront,
+    .pred_Agree,
+    event_level = "second"
+  )
+
+
 ```
 
 *Your answer here*
