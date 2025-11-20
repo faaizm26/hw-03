@@ -277,4 +277,4 @@ gss16_pred %>%
 
 ```
 
-After having calculated the sensitivity, 
+After having calculated the sensitivity, specificity, and area under the ROC curves for both models, it is safe to say that model 1 shows better performance. Model 1 has a specificity of 0.643, whereas model 2 has a specificity of 0.393. This shows that model 1 has a much lower false negative rate than model 2, which shows that its predictions are more accurate. Moreover, looking at the ROC curves, the AUC for model 1 is 0.581 and the AUC for model 2 is 0.535. When looking at the ROC, the AUC should be as close to 1 as possible, since that indicates better model performance and higher accuracy in making predictions. The only statistic that acts as a weakness for model 1 is its lower sensitivity (0.555) in comparison to model 2 (0.668). However, the difference is minor and likely does not take any from model 1's accuracy. 
