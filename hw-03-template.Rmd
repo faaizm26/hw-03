@@ -127,7 +127,7 @@ gss16_wflow_1 <- workflow () %>%
 ```{r}
 ```
 
-I chose a logistic regression for this model because we are using the numerical predictor educ to predict the binary categorical outcome of advfront, which is either "Agree" or "Not Agree". Since we are predicting this binary outcome, it does not make sense to use a different type of regression such as a linear model.
+I chose a logistic regression for this model because we are using the numerical predictor educ to predict the binary categorical outcome of advfront, which is either "Agree" or "Not Agree". Since we are predicting this binary outcome, it does not make sense to use a different type of regression such as a linear model. The logistic regression is also most appropriate for the "glm" computational engine I use in this model.
 
 #### Exercise 2 (c)
 
@@ -220,7 +220,7 @@ gss16_fit_2 <- gss16_wflow_2 %>%
 tidy(gss16_fit_2)
 
 gss16_pred2 <- predict(gss16_fit_2, gss16_test, type = "prob") %>%
-  bind_cols(gss16_test %>% select(advfront, educ))
+  bind_cols(gss16_test)
 
 gss16_pred2
 
