@@ -120,7 +120,6 @@ gss16_wflow_1 <- workflow () %>%
   
 ```
 
-*Your answer here*
 
 #### Exercise 2 (b)
 
@@ -139,7 +138,6 @@ tidy(gss16_fit_1)
 
 ```
 
-*Your answer here*
 
 ## Exercise 3: Logistic regression with single predictor
 
@@ -160,7 +158,6 @@ gss16_pred %>%
   autoplot()
 ```
 
-*Your answer here*
 
 #### Exercise 3 (b)
 
@@ -209,7 +206,6 @@ gss16_wflow_2 <- workflow () %>%
 
 ```
 
-*Your answer here*
 
 #### Exercise 4 (b)
   
@@ -242,7 +238,6 @@ gss16_pred2 %>%
 
 ```
 
-*Your answer here*
 
 #### Exercise 4 (c) 
 
