@@ -87,7 +87,7 @@ ggplot(data = gss16_advfront, aes(x = educ, y = emailhr)) +
   )
 ```
 
-The linear regression model does not perform well in this case. The R-squared value is 0.29, from which we can deduce that only 29% of the variation in emailhr can be explained by educ in this model. There is a pattern of points being clumped together in vertical lines in the scatter plot, which the linear model does not explain. Instead, the equation of the line-of-best-fit creates the false illusion of a linear correlation between the explanatory and response variable.
+The linear regression model does not perform well in this case. The R-squared value is 0.29, from which we can deduce that only 2.9% of the variation in emailhr can be explained by educ in this model. There is a pattern of points being clumped together in vertical lines in the scatter plot, which the linear model does not explain. Instead, the equation of the line-of-best-fit creates the false illusion of a linear correlation between the explanatory and response variable.
 
 ## Exercise 2: Create a workflow to fit a model
 
