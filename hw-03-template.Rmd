@@ -176,7 +176,7 @@ gss16_pred %>%
     ) %>%
       count(advfront_pred, advfront) %>%
       pivot_wider(names_from = advfront, values_from = n) %>%
-      kable(col.names = c("", "Disagreed", "Agreed"))
+      kable(col.names = c("", "Agreed", "Disagreed"))
 
 sensitivity <- 147/(147+118)
 specificity <- 18/(10+18)
@@ -247,8 +247,34 @@ gss16_pred2 %>%
 #### Exercise 4 (c) 
 
 ```{r}
-# replace this with your code
+#Calculating specificity and sensitivity for this model
+
+cutoff_prob <- 0.83
+gss16_pred2 %>%
+  mutate(
+    advfront = if_else(advfront == "Agree", "Agreed", "Disagreed"),
+    advfront_pred = if_else(.pred_Agree > cutoff_prob, "Predicted to have agreed", "Predicted to have disagreed")
+    ) %>%
+      count(advfront_pred, advfront) %>%
+      pivot_wider(names_from = advfront, values_from = n) %>%
+      kable(col.names = c("", "Agreed", "Disagreed"))
+
+sensitivity <- 177/(177+88)
+specificity <- 11/(11+17)
+
+sensitivity
+specificity
+
+#Calculating the area under the curve for model 1:
+
+gss16_pred %>%
+  roc_auc(
+    truth = advfront,
+    .pred_Agree,
+    event_level = "second"
+  )
+
+
 ```
 
-*Your answer here*
-
+After having calculated the sensitivity, 
